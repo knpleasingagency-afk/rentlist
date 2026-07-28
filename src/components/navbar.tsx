@@ -70,7 +70,7 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="hidden md:flex items-center gap-3">
-          {user ? (
+          {user && (
             <Link href="/dashboard">
               <Button
                 size="sm"
@@ -120,7 +120,7 @@ export function Navbar() {
               {label}
             </Link>
           ))}
-          {user ? (
+          {user && (
             <div className="pt-2">
               <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
                 <Button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 font-semibold shadow-lg shadow-blue-500/25">
