@@ -84,20 +84,6 @@ export function Navbar() {
                 Dashboard
               </Button>
             </Link>
-          ) : (
-            <Link href="/auth/login">
-              <Button
-                size="sm"
-                className={`rounded-xl font-semibold transition-all duration-500 ${
-                  scrolled
-                    ? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 shadow-md shadow-blue-500/20 text-white"
-                    : "bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur"
-                }`}
-              >
-                <User className="h-4 w-4 mr-1.5" />
-                Sign In
-              </Button>
-            </Link>
           )}
         </div>
 
@@ -139,18 +125,6 @@ export function Navbar() {
               <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
                 <Button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 font-semibold shadow-lg shadow-blue-500/25">
                   <User className="h-4 w-4 mr-2" /> Dashboard
-                </Button>
-              </Link>
-            </div>
-          ) : (
-            <div className="pt-2">
-              <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                <Button className={`w-full rounded-xl font-semibold ${
-                  scrolled
-                    ? "bg-gradient-to-r from-blue-600 to-cyan-600 shadow-lg shadow-blue-500/25"
-                    : "bg-white/15 hover:bg-white/25 text-white border border-white/20"
-                }`}>
-                  <User className="h-4 w-4 mr-2" /> Sign In
                 </Button>
               </Link>
             </div>
