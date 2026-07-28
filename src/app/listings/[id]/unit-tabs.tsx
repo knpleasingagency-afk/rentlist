@@ -141,9 +141,10 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
                 {(unit.area > 0) && <span>📐 {unit.area} sqm</span>}
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-3xl font-extrabold text-blue-600">${unit.price.toLocaleString()}</p>
-              <p className="text-sm text-slate-500">per month</p>
+            <div className="text-right shrink-0">
+              <p className="text-3xl font-extrabold text-blue-600">
+                ${unit.price.toLocaleString()}<span className="text-base font-normal text-slate-500">/month</span>
+              </p>
             </div>
           </div>
 

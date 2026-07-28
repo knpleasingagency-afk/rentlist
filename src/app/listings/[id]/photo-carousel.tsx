@@ -34,7 +34,7 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
   }
 
   const content = (
-    <div className="relative aspect-[16/10] bg-slate-900 rounded-3xl overflow-hidden group">
+    <div className="relative aspect-[16/9] sm:aspect-[2.4/1] bg-slate-900 overflow-hidden group">
       <img
         src={photos[current]}
         alt={`${title} - Photo ${current + 1}`}

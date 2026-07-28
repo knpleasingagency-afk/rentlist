@@ -39,14 +39,13 @@ export default async function ListingDetailPage({
         </Link>
       </div>
 
+      {/* Full-width photo */}
+      <PhotoCarousel photos={l.photos} title={l.title} />
+
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Main — 3 columns */}
           <div className="lg:col-span-3 space-y-8">
-            {/* Photos */}
-            <div className="rounded-3xl overflow-hidden shadow-lg">
-              <PhotoCarousel photos={l.photos} title={l.title} />
-            </div>
 
             {/* Header */}
             <div>
@@ -71,29 +70,26 @@ export default async function ListingDetailPage({
                     {l.address}
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-right shrink-0">
                   {l.units && l.units.length > 0 ? (
                     (() => {
                       const prices = l.units.map(u => u.price).filter(Boolean);
                       const minP = Math.min(...prices);
                       const maxP = Math.max(...prices);
                       return minP === maxP ? (
-                        <>
-                          <p className="text-3xl font-bold text-slate-900">${minP.toLocaleString()}</p>
-                          <p className="text-sm text-slate-500">per month</p>
-                        </>
+                        <p className="text-2xl sm:text-3xl font-bold text-slate-900">
+                          ${minP.toLocaleString()}<span className="text-base font-normal text-slate-500">/month</span>
+                        </p>
                       ) : (
-                        <>
-                          <p className="text-xl sm:text-2xl font-bold text-slate-900">${minP.toLocaleString()} – ${maxP.toLocaleString()}</p>
-                          <p className="text-sm text-slate-500">per month</p>
-                        </>
+                        <p className="text-lg sm:text-2xl font-bold text-slate-900">
+                          ${minP.toLocaleString()} – ${maxP.toLocaleString()}<span className="text-sm sm:text-base font-normal text-slate-500">/month</span>
+                        </p>
                       );
                     })()
                   ) : (
-                    <>
-                      <p className="text-3xl font-bold text-slate-900">${l.price.toLocaleString()}</p>
-                      <p className="text-sm text-slate-500">per month</p>
-                    </>
+                    <p className="text-2xl sm:text-3xl font-bold text-slate-900">
+                      ${l.price.toLocaleString()}<span className="text-base font-normal text-slate-500">/month</span>
+                    </p>
                   )}
                 </div>
               </div>
