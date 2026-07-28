@@ -42,7 +42,7 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
   return (
     <div>
       <h2 className="text-lg font-bold text-slate-900 mb-4">Building Facilities</h2>
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {amenities.map((a: any) => {
           const name = typeof a === "string" ? a : a.name;
           const photos: string[] = typeof a === "string" ? [] : (a.photos || (a.photo ? [a.photo] : []));

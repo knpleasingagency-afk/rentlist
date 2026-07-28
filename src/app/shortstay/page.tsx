@@ -90,7 +90,7 @@ export default async function ShortStayPage({
             />
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
                 <DollarSign className="h-3 w-3" /> Price / Night
@@ -164,7 +164,7 @@ export default async function ShortStayPage({
 
         {/* Results */}
         {listings && listings.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {listings.map((listing) => (
               <ListingCard key={listing.id} listing={listing as any} />
             ))}

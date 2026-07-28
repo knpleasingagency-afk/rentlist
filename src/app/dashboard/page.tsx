@@ -42,7 +42,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Card className="rounded-2xl border-0 shadow-sm bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
           <CardContent className="p-6 flex items-center justify-between">
             <div>

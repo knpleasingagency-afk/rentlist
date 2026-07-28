@@ -103,7 +103,7 @@ export default async function HomePage() {
         </div>
 
         {listings && listings.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {listings.map((listing, i) => (
               <div key={listing.id} className={`animate-fade-up ${i > 0 ? `animate-fade-up-delay-${i + 1}` : ""}`}>
                 <ListingCard listing={listing as any} />
@@ -134,7 +134,7 @@ export default async function HomePage() {
             <p className="text-slate-500 mt-3 max-w-md mx-auto">Everything you need to find the perfect apartment — in one place.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 icon: Search,

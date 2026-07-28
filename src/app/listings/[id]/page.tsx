@@ -40,7 +40,7 @@ export default async function ListingDetailPage({
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Main — 3 columns */}
           <div className="lg:col-span-3 space-y-8">
             {/* Photos */}

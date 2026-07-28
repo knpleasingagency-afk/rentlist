@@ -205,7 +205,7 @@ export function ListingForm({ action, listing }: ListingFormProps) {
           <CardTitle className="text-lg">Contact Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="contact_phone">Phone *</Label>
               <Input
@@ -429,7 +429,7 @@ export function ListingForm({ action, listing }: ListingFormProps) {
           <CardTitle className="text-lg">Building Facilities</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {AMENITIES_OPTIONS.map((amenity) => {
               const item = amenities.find((a) => a.name === amenity);
               const enabled = !!item;
