@@ -29,13 +29,13 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-50 transition-all duration-500 relative ${
         scrolled
           ? "bg-white/80 backdrop-blur-2xl border-b border-white/70 shadow-2xl shadow-blue-900/5"
           : "bg-gradient-to-r from-blue-950/95 via-indigo-950/95 to-slate-950/95 backdrop-blur-xl border-b border-white/5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-5 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-5 h-16 flex items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-extrabold text-xl tracking-tight shrink-0">
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-all duration-500 ${
@@ -48,8 +48,8 @@ export function Navbar() {
           <span className={scrolled ? "text-slate-900" : "text-white"}>RentList</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className={`hidden md:flex items-center gap-1 rounded-2xl p-1 transition-all duration-500 ${
+        {/* Desktop nav — absolutely centered */}
+        <nav className={`hidden md:flex items-center gap-1 rounded-2xl p-1 transition-all duration-500 absolute left-1/2 -translate-x-1/2 ${
           scrolled ? "bg-slate-100/70" : "bg-white/10 backdrop-blur"
         }`}>
           {navLinks.map(({ href, icon: Icon, label }) => (
