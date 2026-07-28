@@ -5,7 +5,7 @@ import { MapPin, Home, Crown } from "lucide-react";
 import { type Listing } from "@/lib/types";
 
 const UNIT_LABELS: Record<string, string> = {
-  studio: "Studio", "1bed": "1 Bed", "2bed": "2 Bed", "3bed": "3 Bed", penthouse: "Penthouse",
+  studio: "Studio", "1bed": "One Bed", "2bed": "Two Bed", "3bed": "Three Bed", penthouse: "Penthouse",
 };
 
 export function ListingCard({ listing }: { listing: Listing }) {

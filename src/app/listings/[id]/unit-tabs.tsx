@@ -13,12 +13,12 @@ interface UnitData {
   photos: string[];
 }
 
-const UNIT_LABELS: Record<string, { emoji: string; name: string }> = {
-  studio: { emoji: "🏢", name: "Studio" },
-  "1bed": { emoji: "🛏", name: "1 Bedroom" },
-  "2bed": { emoji: "🛏🛏", name: "2 Bedrooms" },
-  "3bed": { emoji: "🛏🛏🛏", name: "3 Bedrooms" },
-  penthouse: { emoji: "👑", name: "Penthouse" },
+const UNIT_LABELS: Record<string, { name: string }> = {
+  studio: { name: "Studio" },
+  "1bed": { name: "One Bedroom" },
+  "2bed": { name: "Two Bedrooms" },
+  "3bed": { name: "Three Bedrooms" },
+  penthouse: { name: "Penthouse" },
 };
 
 const FACILITY_ICONS: Record<string, React.ElementType> = {
@@ -91,7 +91,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
   const unit = units[active];
-  const label = UNIT_LABELS[unit.type] || { emoji: "🏠", name: unit.type };
+  const label = UNIT_LABELS[unit.type] || { name: unit.type };
 
   return (
     <div>
@@ -100,7 +100,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
       {/* Tab buttons */}
       <div className="flex gap-2 overflow-x-auto pb-3 mb-6">
         {units.map((u, i) => {
-          const lab = UNIT_LABELS[u.type] || { emoji: "🏠", name: u.type };
+          const lab = UNIT_LABELS[u.type] || { name: u.type };
           return (
             <button
               key={u.type}
@@ -111,7 +111,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {lab.emoji} {lab.name}
+              {lab.name}
             </button>
           );
         })}
@@ -133,12 +133,12 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-2xl font-extrabold text-slate-900">
-                {label.emoji} {label.name}
+                {label.name}
               </h3>
               <div className="flex items-center gap-4 mt-2 text-sm font-semibold text-slate-500">
-                {(unit.bedrooms > 0) && <span>🛏 {unit.bedrooms} Bedroom{unit.bedrooms > 1 ? "s" : ""}</span>}
-                {(unit.bathrooms > 0) && <span>🚿 {unit.bathrooms} Bathroom{unit.bathrooms > 1 ? "s" : ""}</span>}
-                {(unit.area > 0) && <span>📐 {unit.area} sqm</span>}
+                {(unit.bedrooms > 0) && <span>{unit.bedrooms} Bedroom{unit.bedrooms > 1 ? "s" : ""}</span>}
+                {(unit.bathrooms > 0) && <span>{unit.bathrooms} Bathroom{unit.bathrooms > 1 ? "s" : ""}</span>}
+                {(unit.area > 0) && <span>{unit.area} sqm</span>}
               </div>
             </div>
             <div className="text-right shrink-0">
