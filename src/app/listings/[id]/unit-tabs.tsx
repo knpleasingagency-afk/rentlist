@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Wifi, Wind, Home, Car, Dumbbell, Waves, Sofa, CookingPot, Tv, Shirt, X } from "lucide-react";
+import { useState, useRef } from "react";
+import { Wifi, Wind, Home, Car, Dumbbell, Waves, Sofa, CookingPot, Tv, Shirt, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface UnitData {
   type: string;
@@ -30,6 +30,61 @@ const FACILITY_ICONS: Record<string, React.ElementType> = {
 function FacilityIcon({ name }: { name: string }) {
   const Icon = FACILITY_ICONS[name];
   return Icon ? <Icon className="h-3.5 w-3.5" /> : null;
+}
+
+function PhotoSlider({ photos, onPhotoClick }: { photos: string[]; onPhotoClick: (url: string) => void }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const width = scrollRef.current.clientWidth;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -width : width, behavior: "smooth" });
+  };
+
+  return (
+    <div className="relative group">
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth"
+      >
+        {photos.map((url, i) => (
+          <button
+            key={i}
+            onClick={() => onPhotoClick(url)}
+            className="shrink-0 w-full snap-center"
+          >
+            <img
+              src={url}
+              alt={`Photo ${i + 1}`}
+              className="w-full h-56 sm:h-72 object-cover hover:scale-[1.02] transition-transform"
+            />
+          </button>
+        ))}
+      </div>
+
+      {photos.length > 1 && (
+        <>
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <ChevronLeft className="h-5 w-5 text-slate-700" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <ChevronRight className="h-5 w-5 text-slate-700" />
+          </button>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {photos.map((_, i) => (
+              <span key={i} className="w-2 h-2 rounded-full bg-white/70 shadow" />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export function UnitTabs({ units }: { units: UnitData[] }) {
@@ -64,23 +119,9 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
 
       {/* Active unit content */}
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-        {/* Photo gallery */}
+        {/* Photo slider */}
         {unit.photos && unit.photos.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 p-1">
-            {unit.photos.map((url, i) => (
-              <button
-                key={i}
-                onClick={() => setLightbox(url)}
-                className={`relative overflow-hidden ${i === 0 ? "sm:col-span-2 sm:row-span-2" : ""}`}
-              >
-                <img
-                  src={url}
-                  alt=""
-                  className={`w-full object-cover rounded-lg hover:scale-105 transition-transform ${i === 0 ? "h-64 sm:h-full" : "h-32 sm:h-40"}`}
-                />
-              </button>
-            ))}
-          </div>
+          <PhotoSlider photos={unit.photos} onPhotoClick={setLightbox} />
         ) : (
           <div className="h-40 bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
             No photos for this unit
@@ -89,7 +130,6 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
 
         {/* Details */}
         <div className="p-6 space-y-6">
-          {/* Price + specs */}
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-2xl font-extrabold text-slate-900">
@@ -107,7 +147,6 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
             </div>
           </div>
 
-          {/* Facilities */}
           {unit.facilities && unit.facilities.length > 0 && (
             <div className="border-t pt-4">
               <h4 className="text-sm font-bold text-slate-700 mb-3">Unit Facilities</h4>

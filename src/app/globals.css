@@ -145,6 +145,10 @@
 ::-webkit-scrollbar-thumb { background: oklch(0.85 0.02 260); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: oklch(0.7 0.03 260); }
 
+/* Hide scrollbar for sliders */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* Custom map pins */
 .custom-pin {
   background: transparent !important;

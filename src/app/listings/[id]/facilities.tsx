@@ -1,11 +1,85 @@
 "use client";
 
-import { Check, Wind, Car, Dumbbell, Waves, Sofa, Home, Heart } from "lucide-react";
+import { useState, useRef } from "react";
+import { Check, Wind, Car, Dumbbell, Waves, Sofa, Home, Heart, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface Facility {
   name: string;
   photos?: string[];
   photo?: string;
+}
+
+function FacilityPhotoSlider({ photos, name }: { photos: string[]; name: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [lightbox, setLightbox] = useState<string | null>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const w = scrollRef.current.clientWidth;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -w : w, behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <div className="relative group">
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth"
+        >
+          {photos.map((url, i) => (
+            <button
+              key={i}
+              onClick={() => setLightbox(url)}
+              className="shrink-0 w-full snap-center"
+            >
+              <img
+                src={url}
+                alt={`${name} photo ${i + 1}`}
+                className="w-full h-44 object-cover"
+              />
+            </button>
+          ))}
+        </div>
+
+        {photos.length > 1 && (
+          <>
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronLeft className="h-4 w-4 text-slate-700" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronRight className="h-4 w-4 text-slate-700" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {photos.map((_, i) => (
+                <span key={i} className="w-1.5 h-1.5 rounded-full bg-white/80 shadow" />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          onClick={() => setLightbox(null)}
+        >
+          <img src={lightbox} alt={name} className="max-w-[95vw] max-h-[95vh] object-contain" />
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute top-6 right-6 text-white text-sm bg-white/10 px-4 py-2 rounded-full"
+          >
+            <X className="h-4 w-4 inline mr-1" />Close
+          </button>
+        </div>
+      )}
+    </>
+  );
 }
 
 export function BuildingFacilities({ amenities }: { amenities: any[] }) {
@@ -52,11 +126,7 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
           return (
             <div key={name} className="rounded-2xl border border-slate-100 overflow-hidden hover:shadow-md transition-shadow">
               {photos.length > 0 ? (
-                <div className="flex gap-1.5 overflow-x-auto p-1">
-                  {photos.map((url: string, i: number) => (
-                    <img key={i} src={url} alt={name} className="w-32 h-28 object-cover rounded-lg shrink-0" />
-                  ))}
-                </div>
+                <FacilityPhotoSlider photos={photos} name={name} />
               ) : (
                 <div className="w-full h-24 bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
                   <Icon className={`h-8 w-8 ${color}`} />
