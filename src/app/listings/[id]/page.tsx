@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { MapPin, Phone, Mail, ChevronLeft, Clock, Home, Calendar, Send, Globe } from "lucide-react";
+import { MapPin, Phone, Mail, ChevronLeft, Clock, Home, Send, Globe, Navigation } from "lucide-react";
 import Link from "next/link";
 import { ListingMap } from "./map";
 import { PhotoCarousel } from "./photo-carousel";
@@ -65,9 +65,9 @@ export default async function ListingDetailPage({
                     </span>
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">{l.title}</h1>
-                  <p className="flex items-center gap-1.5 text-slate-500 mt-2">
-                    <MapPin className="h-4 w-4" />
-                    {l.address}
+                  <p className="flex items-start gap-1.5 text-slate-500 mt-2">
+                    <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
+                    <span>{l.address}</span>
                   </p>
                 </div>
                 <div className="text-right shrink-0">
@@ -95,26 +95,6 @@ export default async function ListingDetailPage({
               </div>
             </div>
 
-            {/* Key stats */}
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { icon: Home, value: l.units?.length || 1, label: "Unit Types" },
-                { icon: Calendar, value: new Date(l.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }), label: "Listed" },
-                { icon: MapPin, value: "Phnom Penh", label: "Location" },
-              ].map(({ icon: Icon, value, label }) => (
-                <div key={label} className="bg-slate-50 rounded-2xl p-4 text-center">
-                  <Icon className="h-5 w-5 mx-auto text-blue-400 mb-2" />
-                  <p className="font-bold text-lg text-slate-900">{value}</p>
-                  <p className="text-[11px] text-slate-500">{label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Unit Types as Tabs */}
-            {l.units && l.units.length > 0 && (
-              <UnitTabs units={l.units} />
-            )}
-
             {/* Description */}
             <div>
               <h2 className="text-lg font-bold text-slate-900 mb-3">About this property</h2>
@@ -122,6 +102,11 @@ export default async function ListingDetailPage({
                 {l.description || "No description provided."}
               </p>
             </div>
+
+            {/* Unit Types as Tabs */}
+            {l.units && l.units.length > 0 && (
+              <UnitTabs units={l.units} />
+            )}
 
             {/* Building Facilities */}
             <BuildingFacilities amenities={l.amenities} />
@@ -132,6 +117,15 @@ export default async function ListingDetailPage({
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <ListingMap lat={l.latitude} lng={l.longitude} address={l.address} />
               </div>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${l.latitude},${l.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md shadow-blue-600/25"
+              >
+                <Navigation className="h-4 w-4" />
+                Get Directions
+              </a>
             </div>
           </div>
 
