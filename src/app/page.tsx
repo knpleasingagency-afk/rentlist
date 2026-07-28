@@ -58,18 +58,19 @@ export default async function HomePage() {
             </div>
 
             {/* Search bar */}
-            <form action="/listings" className="flex gap-2 max-w-md animate-fade-up animate-fade-up-delay-1">
-              <div className="relative flex-1">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <form action="/listings" className="flex gap-2.5 max-w-lg animate-fade-up animate-fade-up-delay-1">
+              <div className="relative flex-1 min-w-0">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
                 <Input
                   name="search"
                   placeholder="Search by name or area..."
-                  className="pl-14 h-16 bg-white/[0.08] backdrop-blur border-white/10 text-white placeholder:text-slate-400 rounded-2xl text-base focus:bg-white/[0.14] focus:border-blue-400/40 transition-all"
+                  className="pl-12 h-16 bg-white/10 backdrop-blur border-white/10 text-white placeholder:text-slate-400 rounded-2xl text-base focus:bg-white/[0.16] focus:border-blue-400/50 transition-all"
                 />
               </div>
-              <Button type="submit" size="lg" className="h-16 px-8 rounded-2xl text-base bg-blue-600 hover:bg-blue-500 shadow-xl shadow-blue-600/25">
-                Search
-                <ArrowRight className="h-5 w-5 ml-2" />
+              <Button type="submit" size="lg" className="h-16 px-6 sm:px-8 rounded-2xl text-base bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 shadow-xl shadow-blue-600/25 shrink-0">
+                <span className="hidden sm:inline">Search</span>
+                <Search className="h-5 w-5 sm:hidden" />
+                <ArrowRight className="h-5 w-5 ml-1.5 hidden sm:inline" />
               </Button>
             </form>
 
