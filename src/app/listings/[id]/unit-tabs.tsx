@@ -57,7 +57,7 @@ function PhotoSlider({ photos, onPhotoClick }: { photos: string[]; onPhotoClick:
             <img
               src={url}
               alt={`Photo ${i + 1}`}
-              className="w-full h-56 sm:h-80 object-cover hover:scale-[1.02] transition-transform"
+              className="w-full h-56 sm:h-[32rem] object-cover hover:scale-[1.02] transition-transform"
             />
           </button>
         ))}
