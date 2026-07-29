@@ -32,7 +32,7 @@ export default async function ListingDetailPage({
   return (
     <div>
       {/* Back nav */}
-      <div className="max-w-7xl mx-auto px-4 pt-6">
+      <div className="max-w-[90rem] mx-auto px-4 pt-6">
         <Link href="/listings" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors">
           <ChevronLeft className="h-4 w-4" />
           Back to listings
@@ -42,7 +42,7 @@ export default async function ListingDetailPage({
       {/* Full-width photo */}
       <PhotoCarousel photos={l.photos} title={l.title} />
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-[90rem] mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Main — 3 columns */}
           <div className="lg:col-span-3 space-y-8">

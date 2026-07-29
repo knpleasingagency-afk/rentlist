@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
       {/* Main */}
-      <div className="max-w-7xl mx-auto px-5 py-14">
+      <div className="max-w-[90rem] mx-auto px-5 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="space-y-4 lg:col-span-2">
@@ -62,7 +62,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-5 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="max-w-[90rem] mx-auto px-5 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-slate-500">
             &copy; {new Date().getFullYear()} RentList. All rights reserved.
           </p>

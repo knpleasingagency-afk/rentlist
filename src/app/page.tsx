@@ -38,7 +38,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-16 sm:py-20 w-full">
+        <div className="relative max-w-[90rem] mx-auto px-5 sm:px-6 lg:px-8 pt-16 sm:py-20 w-full">
           <div className="max-w-2xl space-y-8">
             <div className="space-y-4 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur text-sm text-blue-300">
@@ -92,7 +92,7 @@ export default async function HomePage() {
       </section>
 
       {/* ===== FEATURED LISTINGS ===== */}
-      <section className="max-w-7xl mx-auto px-4 pb-16">
+      <section className="max-w-[90rem] mx-auto px-4 pb-16">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider">Inclusive</p>
@@ -128,7 +128,7 @@ export default async function HomePage() {
 
       {/* ===== WHY US SECTION ===== */}
       <section className="bg-gradient-to-b from-white to-blue-50/50">
-        <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="max-w-[90rem] mx-auto px-4 py-20">
           <div className="text-center mb-14">
             <p className="text-sm font-extrabold text-blue-600 uppercase tracking-widest">Why Choose Us</p>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mt-2 text-slate-900">The Smarter Way to Rent</h2>

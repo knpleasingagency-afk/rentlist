@@ -53,7 +53,7 @@ export default async function ShortStayPage({
       <div className="relative bg-gradient-to-br from-slate-900 via-amber-950 to-slate-900 overflow-hidden">
         <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl" />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 py-14">
+        <div className="relative max-w-[90rem] mx-auto px-4 py-14">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div className="text-white space-y-2">
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Short Stay</h1>
@@ -77,7 +77,7 @@ export default async function ShortStayPage({
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-[90rem] mx-auto px-4 py-8 space-y-8">
         {/* Search Form */}
         <form className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border-0 -mt-8 relative z-10 p-6 sm:p-8 space-y-5">
           <div className="relative">

@@ -55,7 +55,7 @@ export default async function ListingsPage({
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzAtMS4xLS45LTItMi0yaC0xMGMtMS4xIDAtMiAuOS0yIDJ2MTBjMCAxLjEuOSAyIDIgMmgxMGMxLjEgMCAyLS45IDItMlYxOHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20" />
         <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-violet-500/10 blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 py-14 sm:py-18">
+        <div className="relative max-w-[90rem] mx-auto px-4 py-14 sm:py-18">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div className="text-white space-y-2">
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Apartments</h1>
@@ -79,7 +79,7 @@ export default async function ListingsPage({
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-[90rem] mx-auto px-4 py-8 space-y-8">
         {/* Search Form */}
         <form className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border-0 -mt-8 relative z-10 p-6 sm:p-8 space-y-5">
           <div className="relative">
