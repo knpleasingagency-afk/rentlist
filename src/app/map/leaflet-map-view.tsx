@@ -147,28 +147,35 @@ export function LeafletMapView({ listings }: Props) {
                 </div>
               </Tooltip>
               <Popup>
-                <div className="w-52">
-                  {l.photos?.[0] && (
-                    <img
-                      src={l.photos[0]}
-                      alt={l.title}
-                      className="w-full h-28 object-cover rounded-t-lg"
-                    />
+                <div className="w-52 rounded-lg overflow-hidden">
+                  {l.photos?.[0] ? (
+                    <div className="relative">
+                      <img
+                        src={l.photos[0]}
+                        alt={l.title}
+                        className="w-full h-28 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute bottom-2 left-2 right-2">
+                        <h3 className="font-extrabold text-xs text-white truncate drop-shadow">{l.title}</h3>
+                        {l.units && l.units.length > 0 && (
+                          <p className="text-[10px] text-white/80 mt-0.5">
+                            {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-full h-28 bg-slate-200 flex items-center justify-center">
+                      <span className="text-xs text-slate-400">No photo</span>
+                    </div>
                   )}
-                  <div className="px-2 pb-2 pt-1.5 space-y-1">
-                    <h3 className="font-extrabold text-xs text-slate-900 truncate">{l.title}</h3>
-                    {l.units && l.units.length > 0 && (
-                      <p className="text-[10px] font-medium text-slate-500">
-                        {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
-                      </p>
-                    )}
-                    <Link
-                      href={`/listings/${l.id}`}
-                      className="inline-block text-[11px] font-bold text-blue-600 hover:underline"
-                    >
-                      View Details →
-                    </Link>
-                  </div>
+                  <Link
+                    href={`/listings/${l.id}`}
+                    className="block text-center text-[11px] font-bold text-blue-600 hover:underline py-1.5 bg-white"
+                  >
+                    View Details →
+                  </Link>
                 </div>
               </Popup>
             </Marker>
