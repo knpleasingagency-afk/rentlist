@@ -162,7 +162,7 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
 
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
           onClick={() => setLightbox(null)}
         >
           <img src={lightbox} alt="" className="max-w-[95vw] max-h-[95vh] object-contain" />

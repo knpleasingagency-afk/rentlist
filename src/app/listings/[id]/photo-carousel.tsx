@@ -13,10 +13,22 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
   const [fullscreen, setFullscreen] = useState(false);
   const touchStartX = useRef(0);
 
-  // Lock body scroll when fullscreen open
+  // Lock scroll when fullscreen open
   useEffect(() => {
-    document.body.style.overflow = fullscreen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (fullscreen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
   }, [fullscreen]);
 
   if (!photos || photos.length === 0) {
@@ -107,7 +119,7 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
       {/* Fullscreen modal */}
       {fullscreen && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
           onClick={() => setFullscreen(false)}
           onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
           onTouchEnd={(e) => {
