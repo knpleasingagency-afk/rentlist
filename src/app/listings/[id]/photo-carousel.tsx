@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
 
 interface PhotoCarouselProps {
@@ -11,7 +11,6 @@ interface PhotoCarouselProps {
 export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
-  const touchStartX = useRef(0);
 
   // Lock scroll when fullscreen open
   useEffect(() => {
@@ -118,54 +117,49 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
 
       {/* Fullscreen modal */}
       {fullscreen && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center select-none"
-          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-          onTouchEnd={(e) => {
-            const diff = touchStartX.current - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 60) {
-              e.preventDefault();
-              e.stopPropagation();
-              if (diff > 0) next(); else prev();
-            }
-          }}
-        >
-          {/* Close by tapping background */}
-          <div className="absolute inset-0" onClick={() => setFullscreen(false)} />
+        <div className="fixed inset-0 z-[9999] bg-black/95 select-none">
+          {/* Close button */}
+          <button
+            onClick={() => setFullscreen(false)}
+            className="absolute top-4 right-4 z-30 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors"
+          >
+            ✕ Close
+          </button>
 
-          <img
-            src={photos[current]}
-            alt={`${title} - Fullscreen`}
-            className="max-w-[95vw] max-h-[95vh] object-contain z-10"
-            draggable={false}
-          />
+          {/* Image */}
+          <div className="absolute inset-0 flex items-center justify-center"
+            onClick={() => setFullscreen(false)}
+          >
+            <img
+              src={photos[current]}
+              alt={`${title} - Fullscreen`}
+              className="max-w-[95vw] max-h-[95vh] object-contain"
+              draggable={false}
+            />
+          </div>
+
           {photos.length > 1 && (
             <>
-              {/* Left tap zone */}
-              <div
-                className="absolute left-0 top-0 bottom-0 w-[15%] z-20 flex items-center justify-center"
+              {/* Left button */}
+              <button
                 onClick={(e) => { e.stopPropagation(); prev(); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors"
               >
-                <ChevronLeft className="h-8 w-8 text-white/70" />
-              </div>
-              {/* Right tap zone */}
-              <div
-                className="absolute right-0 top-0 bottom-0 w-[15%] z-20 flex items-center justify-center"
+                <ChevronLeft className="h-7 w-7 text-white" />
+              </button>
+              {/* Right button */}
+              <button
                 onClick={(e) => { e.stopPropagation(); next(); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors"
               >
-                <ChevronRight className="h-8 w-8 text-white/70" />
-              </div>
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full z-20">
+                <ChevronRight className="h-7 w-7 text-white" />
+              </button>
+              {/* Counter */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full z-30">
                 {current + 1} / {photos.length}
               </div>
             </>
           )}
-          <button
-            onClick={() => setFullscreen(false)}
-            className="absolute top-6 right-6 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors z-20"
-          >
-            Close
-          </button>
         </div>
       )}
     </div>

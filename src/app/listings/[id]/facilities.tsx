@@ -76,7 +76,7 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
       >
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth"
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth overscroll-x-contain"
         >
           {slides.map((item, i) => {
             const Icon = getIcon(item.facilityName);

@@ -46,7 +46,7 @@ function PhotoSlider({ photos, onPhotoClick }: { photos: string[]; onPhotoClick:
     <div className="relative group">
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth"
+        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none scroll-smooth overscroll-x-contain"
       >
         {photos.map((url, i) => (
           <button
