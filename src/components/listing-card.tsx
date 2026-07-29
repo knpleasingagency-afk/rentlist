@@ -28,19 +28,15 @@ export function ListingCard({ listing }: { listing: Listing }) {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-          {/* Top badges — compact */}
-          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center gap-1.5">
-            {listing.is_featured && (
+          {/* Top badge */}
+          {listing.is_featured && (
+            <div className="absolute top-2.5 left-2.5">
               <span className="bg-purple-500/90 backdrop-blur text-white text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow">
                 <Crown className="h-3 w-3" fill="white" />
+                Inclusive
               </span>
-            )}
-            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md shadow backdrop-blur ${
-              isShort ? "bg-amber-400/90 text-amber-900" : "bg-white/80 text-slate-700"
-            }`}>
-              {isShort ? "Short" : "Long"}
-            </span>
-          </div>
+            </div>
+          )}
 
           {/* Price */}
           <div className="absolute bottom-3 left-3">

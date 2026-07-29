@@ -64,7 +64,7 @@ export default async function HomePage() {
                 <Input
                   name="search"
                   placeholder="Search by name or area..."
-                  className="pl-12 h-16 bg-white/10 backdrop-blur border-white/10 text-white placeholder:text-slate-400 rounded-2xl text-base focus:bg-white/[0.16] focus:border-blue-400/50 transition-all"
+                  className="pl-12 h-16 bg-white/10 backdrop-blur border-white/10 text-white placeholder:text-slate-400 rounded-2xl text-base text-left focus:bg-white/[0.16] focus:border-blue-400/50 transition-all"
                 />
               </div>
               <Button type="submit" size="lg" className="h-16 px-6 sm:px-8 rounded-2xl text-base bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 shadow-xl shadow-blue-600/25 shrink-0">
@@ -75,7 +75,7 @@ export default async function HomePage() {
             </form>
 
             {/* Stats row */}
-            <div className="flex gap-8 text-white animate-fade-up animate-fade-up-delay-2">
+            <div className="flex justify-center sm:justify-start gap-8 text-white animate-fade-up animate-fade-up-delay-2">
               {[
                 { value: count ?? 0, label: "Listings" },
                 { value: "100+", label: "Happy Clients" },

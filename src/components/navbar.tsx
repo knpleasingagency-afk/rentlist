@@ -92,7 +92,7 @@ export function Navbar() {
           className={`md:hidden p-2.5 rounded-xl transition-all duration-300 ${
             scrolled
               ? "bg-slate-100 hover:bg-slate-200 text-slate-700"
-              : "bg-white/10 hover:bg-white/20 text-white"
+              : "bg-white/20 hover:bg-white/30 text-white"
           }`}
           onClick={() => setMobileOpen(!mobileOpen)}
         >
