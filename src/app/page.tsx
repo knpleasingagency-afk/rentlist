@@ -135,7 +135,7 @@ export default async function HomePage() {
             <p className="text-slate-500 mt-3 max-w-md mx-auto">Everything you need to find the perfect apartment — in one place.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               {
                 icon: Search,
@@ -175,13 +175,13 @@ export default async function HomePage() {
               },
             ].map(({ icon: Icon, title, desc, bg, iconBg, iconColor, color }) => (
               <div key={title} className="group text-center">
-                <div className={`aspect-[4/3] rounded-3xl overflow-hidden mb-5 bg-gradient-to-br ${color} p-6 flex items-center justify-center`}>
-                  <div className={`w-16 h-16 rounded-2xl bg-white/90 backdrop-blur flex items-center justify-center mx-auto shadow-lg`}>
-                    <Icon className={`h-8 w-8 ${iconColor}`} />
+                <div className={`aspect-square sm:aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden mb-3 sm:mb-5 bg-gradient-to-br ${color} p-4 sm:p-6 flex items-center justify-center`}>
+                  <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-white/90 backdrop-blur flex items-center justify-center mx-auto shadow-lg`}>
+                    <Icon className={`h-6 w-6 sm:h-8 sm:w-8 ${iconColor}`} />
                   </div>
                 </div>
-                <h3 className="font-extrabold text-lg mb-2 text-slate-900">{title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed px-2">{desc}</p>
+                <h3 className="font-extrabold text-sm sm:text-lg mb-1 sm:mb-2 text-slate-900">{title}</h3>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed px-1 sm:px-2">{desc}</p>
               </div>
             ))}
           </div>
