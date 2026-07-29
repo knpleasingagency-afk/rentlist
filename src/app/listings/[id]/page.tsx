@@ -6,7 +6,6 @@ import { ListingMap } from "./map";
 import { PhotoCarousel } from "./photo-carousel";
 import { UnitTabs } from "./unit-tabs";
 import { BuildingFacilities } from "./facilities";
-import { CopyLocationButton } from "./copy-location-button";
 import type { Listing } from "@/lib/types";
 export const dynamic = "force-dynamic";
 
@@ -117,18 +116,15 @@ export default async function ListingDetailPage({
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <ListingMap lat={l.latitude} lng={l.longitude} address={l.address} />
               </div>
-              <div className="flex items-center gap-3 mt-3">
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${l.latitude},${l.longitude}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md shadow-blue-600/25"
-                >
-                  <Navigation className="h-4 w-4" />
-                  Get Directions
-                </a>
-                <CopyLocationButton lat={l.latitude} lng={l.longitude} />
-              </div>
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${l.latitude},${l.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-500 transition-colors shadow-md shadow-blue-600/25"
+              >
+                <Navigation className="h-4 w-4" />
+                Get Directions
+              </a>
             </div>
           </div>
 

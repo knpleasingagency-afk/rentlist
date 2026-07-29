@@ -3,7 +3,7 @@ import { ListingCard } from "@/components/listing-card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, SlidersHorizontal, Bed, Bath, DollarSign, Maximize, X, Home } from "lucide-react";
+import { Search, X, Home } from "lucide-react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -80,75 +80,43 @@ export default async function ListingsPage({
       </div>
 
       <div className="max-w-[90rem] mx-auto px-4 py-8 space-y-8">
-        {/* Search Form */}
-        <form className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border-0 -mt-8 relative z-10 p-6 sm:p-8 space-y-5">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              name="search"
-              placeholder="Search by apartment name or address..."
-              defaultValue={search}
-              className="pl-12 h-14 rounded-xl bg-muted/30 text-base"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                <DollarSign className="h-3 w-3" /> Price Range
-              </label>
-              <div className="flex gap-2">
-                <Input name="minPrice" type="number" placeholder="Min $" defaultValue={minPrice} className="rounded-xl h-10" />
-                <Input name="maxPrice" type="number" placeholder="Max $" defaultValue={maxPrice} className="rounded-xl h-10" />
-              </div>
+        {/* Search Form — compact */}
+        <form className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border-0 -mt-8 relative z-10 p-4 sm:p-5 space-y-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
+            <div className="col-span-2 sm:col-span-3 lg:col-span-2 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                name="search"
+                placeholder="Search name or area..."
+                defaultValue={search}
+                className="pl-9 h-10 rounded-xl bg-muted/30 text-sm"
+              />
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                <Bed className="h-3 w-3" /> Bedrooms
-              </label>
+            <div className="flex gap-1.5">
+              <Input name="minPrice" type="number" placeholder="Min $" defaultValue={minPrice} className="rounded-xl h-10 text-sm" />
+              <Input name="maxPrice" type="number" placeholder="Max $" defaultValue={maxPrice} className="rounded-xl h-10 text-sm" />
+            </div>
+            <div>
               <select name="beds" defaultValue={beds} className="w-full h-10 rounded-xl border bg-background px-3 text-sm">
-                <option value="">Any</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
+                <option value="">Beds: Any</option>
+                <option value="1">1+ BR</option>
+                <option value="2">2+ BR</option>
+                <option value="3">3+ BR</option>
+                <option value="4">4+ BR</option>
               </select>
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                <Bath className="h-3 w-3" /> Bathrooms
-              </label>
-              <select name="baths" defaultValue={baths} className="w-full h-10 rounded-xl border bg-background px-3 text-sm">
-                <option value="">Any</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
-              </select>
+            <div className="flex gap-1.5 items-center">
+              <Button type="submit" size="sm" className="rounded-xl bg-blue-600 hover:bg-blue-500 h-10 px-4">
+                <Search className="h-4 w-4" />
+              </Button>
+              {hasFilters && (
+                <Link href="/listings">
+                  <Button type="button" variant="ghost" size="sm" className="rounded-xl h-10 px-3">
+                    <X className="h-4 w-4" />
+                  </Button>
+                </Link>
+              )}
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                <Maximize className="h-3 w-3" /> Area (sqm)
-              </label>
-              <div className="flex gap-2">
-                <Input name="minArea" type="number" placeholder="Min" defaultValue={minArea} className="rounded-xl h-10" />
-                <Input name="maxArea" type="number" placeholder="Max" defaultValue={maxArea} className="rounded-xl h-10" />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <Button type="submit" size="lg" className="rounded-xl px-8 bg-blue-600 hover:bg-blue-500">
-              <Search className="h-4 w-4 mr-2" /> Search
-            </Button>
-            {hasFilters && (
-              <Link href="/listings">
-                <Button type="button" variant="ghost" size="lg" className="rounded-xl">
-                  <X className="h-4 w-4 mr-2" /> Clear All
-                </Button>
-              </Link>
-            )}
           </div>
         </form>
 

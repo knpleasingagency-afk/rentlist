@@ -112,7 +112,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {u.title || lab.name}
+              {lab.name}
             </button>
           );
         })}
