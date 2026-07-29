@@ -92,7 +92,7 @@ interface Props {
     bathrooms: number;
     photos: string[];
     listing_type?: string;
-    units?: Array<{ price: number }>;
+    units?: Array<{ type: string; price: number }>;
   }>;
 }
 
@@ -148,23 +148,19 @@ export function LeafletMapView({ listings }: Props) {
                     />
                   )}
                   <h3 className="font-extrabold text-xs leading-tight truncate">{l.title}</h3>
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <span className="font-extrabold text-sm text-blue-600">
-                      ${(() => {
-                        const prices = l.units?.map(u => u.price).filter(Boolean) || [];
-                        return prices.length > 0
-                          ? `$${Math.min(...prices).toLocaleString()}-$${Math.max(...prices).toLocaleString()}`
-                          : `$${(l.price || 0).toLocaleString()}`;
-                      })()}
-                    </span>
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                      l.listing_type === "shortstay"
-                        ? "bg-amber-100 text-amber-700"
-                        : "bg-blue-100 text-blue-700"
-                    }`}>
-                      {l.listing_type === "shortstay" ? "Short" : "Long"}
-                    </span>
-                  </div>
+                  <p className="font-extrabold text-sm text-blue-600 mt-1">
+                    ${(() => {
+                      const prices = l.units?.map(u => u.price).filter(Boolean) || [];
+                      return prices.length > 0
+                        ? `${Math.min(...prices).toLocaleString()}-${Math.max(...prices).toLocaleString()}`
+                        : (l.price || 0).toLocaleString();
+                    })()}/mo
+                  </p>
+                  {l.units && l.units.length > 0 && (
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      {l.units.map(u => u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
+                    </p>
+                  )}
                   <Link
                     href={`/listings/${l.id}`}
                     className="inline-block mt-2 text-[11px] font-bold text-blue-600 hover:underline"
