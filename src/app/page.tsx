@@ -57,6 +57,20 @@ export default async function HomePage() {
               </p>
             </div>
 
+            {/* Stats row — colorful */}
+            <div className="flex gap-6 sm:gap-8 animate-fade-up animate-fade-up-delay-1">
+              {[
+                { value: count ?? 0, label: "Listings", color: "from-blue-400 to-cyan-300" },
+                { value: "100+", label: "Happy Clients", color: "from-purple-400 to-pink-300" },
+                { value: "24/7", label: "Support", color: "from-emerald-400 to-teal-300" },
+              ].map(({ value, label, color }) => (
+                <div key={label} className="text-center">
+                  <p className={`text-xl sm:text-2xl font-extrabold bg-gradient-to-r ${color} bg-clip-text text-transparent`}>{value}</p>
+                  <p className="text-[11px] sm:text-xs text-blue-200/80 font-medium mt-0.5">{label}</p>
+                </div>
+              ))}
+            </div>
+
             {/* Search bar */}
             <form action="/listings" className="flex gap-2.5 max-w-lg animate-fade-up animate-fade-up-delay-1">
               <div className="relative flex-1 min-w-0">
@@ -88,20 +102,6 @@ export default async function HomePage() {
           <Link href="/listings" className="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:underline">
             View all <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
-
-        {/* Stats — centered, visible colors */}
-        <div className="flex justify-center gap-6 sm:gap-10 mb-8">
-          {[
-            { value: count ?? 0, label: "Listings" },
-            { value: "100+", label: "Happy Clients" },
-            { value: "24/7", label: "Support" },
-          ].map(({ value, label }) => (
-            <div key={label} className="text-center">
-              <p className="text-xl sm:text-2xl font-extrabold text-slate-900">{value}</p>
-              <p className="text-xs sm:text-sm text-slate-500 font-medium">{label}</p>
-            </div>
-          ))}
         </div>
 
         {listings && listings.length > 0 ? (
