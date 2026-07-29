@@ -1,6 +1,8 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import { useEffect, useMemo } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Link from "next/link";
@@ -26,6 +28,58 @@ function createIcon(color: string) {
 const longtermIcon = createIcon("#2563eb");
 const shortstayIcon = createIcon("#f59e0b");
 
+const DEFAULT_CENTER: [number, number] = [11.5564, 104.9282]; // Phnom Penh
+const DEFAULT_ZOOM = 13;
+
+/**
+ * Reads initial position from URL search params (?lat=...&lng=...&z=...),
+ * and writes the position back to the URL as the user pans/zooms so
+ * the current view is always shareable via a link.
+ */
+function MapPositionSync() {
+  const map = useMap();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // On mount: if URL has lat/lng/zoom, fly there once
+  useEffect(() => {
+    const lat = searchParams.get("lat");
+    const lng = searchParams.get("lng");
+    const zoom = searchParams.get("z");
+    if (lat && lng) {
+      map.flyTo(
+        [parseFloat(lat), parseFloat(lng)],
+        zoom ? parseInt(zoom, 10) : map.getZoom(),
+        { duration: 1 },
+      );
+    }
+    // Only run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync URL ← map position on move/zoom end
+  useEffect(() => {
+    const handleMoveEnd = () => {
+      const center = map.getCenter();
+      const zoom = map.getZoom();
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("lat", center.lat.toFixed(5));
+      params.set("lng", center.lng.toFixed(5));
+      params.set("z", zoom.toString());
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    };
+    map.on("moveend", handleMoveEnd);
+    map.on("zoomend", handleMoveEnd);
+    return () => {
+      map.off("moveend", handleMoveEnd);
+      map.off("zoomend", handleMoveEnd);
+    };
+  }, [map, router, pathname, searchParams]);
+
+  return null;
+}
+
 interface Props {
   listings: Array<{
     id: string;
@@ -43,18 +97,21 @@ interface Props {
 
 export function LeafletMapView({ listings }: Props) {
   const validListings = listings.filter((l) => l.latitude && l.longitude);
-  const centerLat = validListings.length > 0
-    ? validListings.reduce((s, l) => s + l.latitude, 0) / validListings.length
-    : 11.5564;
-  const centerLng = validListings.length > 0
-    ? validListings.reduce((s, l) => s + l.longitude, 0) / validListings.length
-    : 104.9282;
+
+  // Compute default center from listing averages (used when no URL params)
+  const computedCenter = useMemo((): [number, number] => {
+    if (validListings.length === 0) return DEFAULT_CENTER;
+    return [
+      validListings.reduce((s, l) => s + l.latitude, 0) / validListings.length,
+      validListings.reduce((s, l) => s + l.longitude, 0) / validListings.length,
+    ];
+  }, [validListings]);
 
   return (
     <div className="h-[70vh] w-full">
       <MapContainer
-        center={[centerLat, centerLng]}
-        zoom={13}
+        center={computedCenter}
+        zoom={DEFAULT_ZOOM}
         className="h-full w-full"
         scrollWheelZoom={true}
       >
@@ -62,6 +119,10 @@ export function LeafletMapView({ listings }: Props) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        {/* Syncs URL ↔ map position for shareable links */}
+        <MapPositionSync />
+
         {validListings.map((l) => {
           const isShort = l.listing_type === "shortstay";
           return (
@@ -99,6 +160,14 @@ export function LeafletMapView({ listings }: Props) {
                   >
                     View Details →
                   </Link>
+                  <a
+                    href={`https://www.google.com/maps?q=${l.latitude},${l.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-2 ml-4 text-xs font-bold text-green-600 hover:underline"
+                  >
+                    Google Maps ↗
+                  </a>
                 </div>
               </Popup>
             </Marker>

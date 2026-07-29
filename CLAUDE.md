@@ -19,8 +19,8 @@ No test suite is configured.
 
 ## Tech Stack
 
-- **Next.js 16** (App Router) — React 19, RSC by default
-- **Tailwind CSS 4** + **shadcn/ui** — Styling and UI primitives
+- **Next.js 16** (App Router) — React 19, RSC by default. **Important:** This version has breaking changes from prior Next.js releases. Consult `node_modules/next/dist/docs/` before writing any Next.js-specific code (see AGENTS.md).
+- **Tailwind CSS 4** + **shadcn/ui** (`base-nova` style, `lucide` icons) — Styling and UI primitives
 - **Supabase** — Auth (email/password), PostgreSQL, photo storage
 - **Leaflet / react-leaflet** — Interactive maps (OpenStreetMap)
 - **Vercel** — Deployment
@@ -53,6 +53,8 @@ Two core tables plus an inquiries table:
 - **`inquiries`** — Contact form submissions (public insert, admin read/update). Schema in `inquiries.sql`.
 
 RLS policies: published listings are public; owners manage their own; admins see everything.
+
+**Note:** `database.sql` is the base setup script but may be missing newer columns (`listing_type`, `is_featured`, `units`, `contact_telegram`, `contact_whatsapp`, `contact_website`). The TypeScript types in `src/lib/types.ts` are the authoritative schema reference. Also run `inquiries.sql` (contact form submissions table) and `storage-policy.sql` (photo upload permissions) in the Supabase SQL Editor.
 
 ### Subscription Model
 

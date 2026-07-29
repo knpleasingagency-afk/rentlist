@@ -300,6 +300,17 @@ export function ListingForm({ action, listing }: ListingFormProps) {
                 {/* Expanded content */}
                 {enabled && (
                   <div className="px-4 pb-4 space-y-4 border-t border-blue-50 pt-4">
+                    {/* Custom title */}
+                    <div>
+                      <Label className="text-[11px]">Unit Title</Label>
+                      <input
+                        type="text"
+                        value={unit.title || ""}
+                        onChange={(e) => setUnits(units.map((u) => u.type === opt.value ? { ...u, title: e.target.value } : u))}
+                        className="w-full h-10 rounded-xl border px-3 text-sm mt-1"
+                        placeholder={`e.g. Deluxe ${opt.label}`}
+                      />
+                    </div>
                     {/* Fields row */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       <div>

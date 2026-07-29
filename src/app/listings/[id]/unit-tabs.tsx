@@ -5,6 +5,7 @@ import { Wifi, Wind, Home, Car, Dumbbell, Waves, Sofa, CookingPot, Tv, Shirt, X,
 
 interface UnitData {
   type: string;
+  title?: string;
   price: number;
   bedrooms: number;
   bathrooms: number;
@@ -111,7 +112,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {lab.name}
+              {u.title || lab.name}
             </button>
           );
         })}
@@ -133,7 +134,7 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-2xl font-extrabold text-slate-900">
-                {label.name}
+                {unit.title || label.name}
               </h3>
               <div className="flex items-center gap-4 mt-2 text-sm font-semibold text-slate-500">
                 {(unit.bedrooms > 0) && <span>{unit.bedrooms} Bedroom{unit.bedrooms > 1 ? "s" : ""}</span>}

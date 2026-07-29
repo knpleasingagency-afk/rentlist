@@ -6,8 +6,8 @@ import { ListingMap } from "./map";
 import { PhotoCarousel } from "./photo-carousel";
 import { UnitTabs } from "./unit-tabs";
 import { BuildingFacilities } from "./facilities";
+import { CopyLocationButton } from "./copy-location-button";
 import type { Listing } from "@/lib/types";
-
 export const dynamic = "force-dynamic";
 
 export default async function ListingDetailPage({
@@ -117,6 +117,7 @@ export default async function ListingDetailPage({
               <div className="rounded-3xl overflow-hidden shadow-lg">
                 <ListingMap lat={l.latitude} lng={l.longitude} address={l.address} />
               </div>
+<<<<<<< HEAD
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${l.latitude},${l.longitude}`}
                 target="_blank"
@@ -126,6 +127,9 @@ export default async function ListingDetailPage({
                 <Navigation className="h-4 w-4" />
                 Get Directions
               </a>
+=======
+              <CopyLocationButton lat={l.latitude} lng={l.longitude} />
+>>>>>>> 150941a (feat: coordinate paste, custom unit titles, Google Maps share links)
             </div>
           </div>
 

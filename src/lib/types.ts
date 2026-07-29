@@ -10,6 +10,7 @@ export interface Profile {
 
 export interface UnitType {
   type: string;
+  title?: string;
   price: number;
   bedrooms: number;
   bathrooms: number;

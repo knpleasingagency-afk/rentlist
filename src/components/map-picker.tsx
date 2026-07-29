@@ -22,16 +22,33 @@ interface MapPickerProps {
   onChange: (lat: number, lng: number) => void;
 }
 
-function parseGoogleMapsUrl(url: string): { lat: number; lng: number } | null {
-  const atMatch = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+function parseCoordinates(input: string): { lat: number; lng: number } | null {
+  const cleaned = input.trim();
+
+  // Try raw coordinates first: "11.577851, 104.881932" or "11.577851 104.881932"
+  const rawParts = cleaned.split(/[,\s]+/).filter(Boolean);
+  if (rawParts.length === 2) {
+    const lat = parseFloat(rawParts[0]);
+    const lng = parseFloat(rawParts[1]);
+    if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+      return { lat, lng };
+    }
+  }
+
+  // Then try Google Maps URLs
+  const atMatch = cleaned.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (atMatch) return { lat: parseFloat(atMatch[1]), lng: parseFloat(atMatch[2]) };
-  const dMatch = url.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
+  const dMatch = cleaned.match(/!3d(-?\d+\.?\d*)!4d(-?\d+\.?\d*)/);
   if (dMatch) return { lat: parseFloat(dMatch[1]), lng: parseFloat(dMatch[2]) };
-  const qMatch = url.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  const qMatch = cleaned.match(/[?&]q=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (qMatch) return { lat: parseFloat(qMatch[1]), lng: parseFloat(qMatch[2]) };
-  const llMatch = url.match(/[?&]ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
+  const llMatch = cleaned.match(/[?&]ll=(-?\d+\.?\d*),(-?\d+\.?\d*)/);
   if (llMatch) return { lat: parseFloat(llMatch[1]), lng: parseFloat(llMatch[2]) };
   return null;
+}
+
+function parseGoogleMapsUrl(url: string): { lat: number; lng: number } | null {
+  return parseCoordinates(url);
 }
 
 export function MapPicker({ lat, lng, onChange }: MapPickerProps) {
@@ -65,7 +82,7 @@ export function MapPicker({ lat, lng, onChange }: MapPickerProps) {
     <div className="space-y-3">
       <Input
         ref={inputRef}
-        placeholder="Paste Google Maps link and press Enter..."
+        placeholder="Paste coordinates (e.g. 11.577851, 104.881932) or a Google Maps link..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onPaste={handlePaste}
@@ -74,7 +91,7 @@ export function MapPicker({ lat, lng, onChange }: MapPickerProps) {
       />
       <LeafletPicker lat={lat} lng={lng} onChange={onChange} />
       <p className="text-[11px] text-muted-foreground">
-        Paste a Google Maps link (auto-detects) or click on the map. Scroll to zoom.
+        Paste coordinates like "11.577851, 104.881932", a Google Maps link, or click on the map.
       </p>
     </div>
   );

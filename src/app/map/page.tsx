@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { Suspense } from "react";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { MapView } from "./map-view";
@@ -23,7 +24,13 @@ export default async function MapPage() {
       </div>
 
       <div className="rounded-3xl overflow-hidden border-0 shadow-xl">
-        <MapView listings={listings ?? []} />
+        <Suspense fallback={
+          <div className="h-[70vh] bg-muted flex items-center justify-center text-muted-foreground">
+            Loading map...
+          </div>
+        }>
+          <MapView listings={listings ?? []} />
+        </Suspense>
       </div>
     </div>
   );
