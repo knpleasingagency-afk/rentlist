@@ -78,7 +78,7 @@ export default async function HomePage() {
                 <Input
                   name="search"
                   placeholder="Search by name or area..."
-                  className="pl-12 h-16 bg-white/10 backdrop-blur border-white/10 text-white placeholder:text-slate-400 rounded-2xl text-base text-left focus:bg-white/[0.16] focus:border-blue-400/50 transition-all"
+                  className="pl-12 h-16 bg-white/10 backdrop-blur border-white/10 text-white placeholder:text-white/40 rounded-2xl text-base text-left focus:bg-white/[0.16] focus:border-blue-400/50 transition-all"
                 />
               </div>
               <Button type="submit" size="lg" className="h-16 px-6 sm:px-8 rounded-2xl text-base bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 shadow-xl shadow-blue-600/25 shrink-0">
