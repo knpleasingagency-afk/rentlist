@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Wifi, Wind, Home, Car, Dumbbell, Waves, Sofa, CookingPot, Tv, Shirt, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface UnitData {
@@ -93,15 +93,6 @@ export function UnitTabs({ units }: { units: UnitData[] }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
   const unit = units[active];
   const label = UNIT_LABELS[unit.type] || { name: unit.type };
-
-  useEffect(() => {
-    if (lightbox) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [lightbox]);
 
   return (
     <div>
