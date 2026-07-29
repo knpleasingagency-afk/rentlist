@@ -155,11 +155,10 @@ export function LeafletMapView({ listings }: Props) {
                         alt={l.title}
                         className="w-full h-28 object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute bottom-2 left-2 right-2">
-                        <h3 className="font-extrabold text-xs text-white truncate drop-shadow">{l.title}</h3>
+                      <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-2.5 py-2">
+                        <h3 className="font-extrabold text-[11px] text-white truncate">{l.title}</h3>
                         {l.units && l.units.length > 0 && (
-                          <p className="text-[10px] text-white/80 mt-0.5">
+                          <p className="text-[10px] text-white/70 mt-0.5">
                             {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
                           </p>
                         )}
