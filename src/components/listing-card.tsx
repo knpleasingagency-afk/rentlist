@@ -42,10 +42,11 @@ export function ListingCard({ listing }: { listing: Listing }) {
             </span>
           </div>
 
-          {/* Price — smaller */}
+          {/* Price */}
           <div className="absolute bottom-3 left-3">
-            <p className="text-white font-extrabold text-base sm:text-lg drop-shadow">{priceText}</p>
-            <p className="text-white/60 text-[11px] font-medium">/month</p>
+            <p className="text-white font-extrabold text-base sm:text-lg drop-shadow">
+              {priceText}<span className="text-white/60 text-[11px] font-medium">/month</span>
+            </p>
           </div>
         </div>
 
