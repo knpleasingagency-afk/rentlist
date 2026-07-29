@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Check, Wind, Car, Dumbbell, Waves, Sofa, Home, Heart, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 function getIcon(name: string) {
@@ -57,6 +57,15 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (lightbox) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [lightbox]);
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
