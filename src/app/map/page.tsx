@@ -11,7 +11,7 @@ export default async function MapPage() {
 
   const { data: listings } = await supabase
     .from("listings")
-    .select("id, title, price, latitude, longitude, address, bedrooms, bathrooms, photos, listing_type")
+    .select("id, title, price, latitude, longitude, address, bedrooms, bathrooms, photos, listing_type, units")
     .eq("is_published", true);
 
   return (

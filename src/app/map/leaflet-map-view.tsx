@@ -92,6 +92,7 @@ interface Props {
     bathrooms: number;
     photos: string[];
     listing_type?: string;
+    units?: Array<{ price: number }>;
   }>;
 }
 
@@ -131,43 +132,45 @@ export function LeafletMapView({ listings }: Props) {
               position={[l.latitude, l.longitude]}
               icon={isShort ? shortstayIcon : longtermIcon}
             >
-              {/* Always-visible name label */}
-              <Tooltip permanent direction="top" offset={[0, -38]} opacity={1}>
+              {/* Always-visible name label — clicks pass through to marker */}
+              <Tooltip permanent direction="top" offset={[0, -38]} opacity={1} className="pointer-events-none">
                 <div className="bg-white text-slate-900 font-extrabold text-xs px-2.5 py-1 rounded-lg shadow-lg border-0 whitespace-nowrap">
                   {l.title}
                 </div>
               </Tooltip>
               <Popup>
-                <div className="min-w-[220px]">
+                <div className="w-44">
                   {l.photos?.[0] && (
                     <img
                       src={l.photos[0]}
                       alt={l.title}
-                      className="w-full h-32 object-cover rounded-xl mb-3"
+                      className="w-full h-20 object-cover rounded-lg mb-2"
                     />
                   )}
-                  <h3 className="font-extrabold text-sm">{l.title}</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">{l.address}</p>
-                  <div className="flex items-center justify-between mt-3">
-                    <span className="font-extrabold text-base">${l.price}<span className="text-xs text-slate-400 font-normal">/mo</span></span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      {l.bedrooms}BR · {l.bathrooms}BA
+                  <h3 className="font-extrabold text-xs leading-tight truncate">{l.title}</h3>
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <span className="font-extrabold text-sm text-blue-600">
+                      ${(() => {
+                        const prices = l.units?.map(u => u.price).filter(Boolean) || [];
+                        return prices.length > 0
+                          ? `$${Math.min(...prices).toLocaleString()}-$${Math.max(...prices).toLocaleString()}`
+                          : `$${(l.price || 0).toLocaleString()}`;
+                      })()}
+                    </span>
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      l.listing_type === "shortstay"
+                        ? "bg-amber-100 text-amber-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}>
+                      {l.listing_type === "shortstay" ? "Short" : "Long"}
                     </span>
                   </div>
                   <Link
                     href={`/listings/${l.id}`}
-                    className="inline-block mt-3 text-xs font-bold text-blue-600 hover:underline"
+                    className="inline-block mt-2 text-[11px] font-bold text-blue-600 hover:underline"
                   >
                     View Details →
                   </Link>
-                  <a
-                    href={`https://www.google.com/maps?q=${l.latitude},${l.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-2 ml-4 text-xs font-bold text-green-600 hover:underline"
-                  >
-                    Google Maps ↗
-                  </a>
                 </div>
               </Popup>
             </Marker>
