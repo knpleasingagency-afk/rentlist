@@ -147,35 +147,37 @@ export function LeafletMapView({ listings }: Props) {
                 </div>
               </Tooltip>
               <Popup>
-                <div className="w-52 rounded-lg overflow-hidden">
+                <Link href={`/listings/${l.id}`} className="block w-56 p-0.5">
                   {l.photos?.[0] ? (
-                    <div className="relative">
+                    <div className="relative rounded-lg overflow-hidden group">
                       <img
                         src={l.photos[0]}
                         alt={l.title}
-                        className="w-full h-28 object-cover"
+                        className="w-full h-36 object-cover"
                       />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent pt-8 pb-2 px-2.5">
-                        <h3 className="font-extrabold text-[11px] text-white truncate drop-shadow-sm">{l.title}</h3>
-                        {l.units && l.units.length > 0 && (
-                          <p className="text-[10px] text-white/80 mt-0.5 drop-shadow-sm">
-                            {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
-                          </p>
-                        )}
+                      {/* Dark overlay on hover */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-200 flex items-center justify-center">
+                        <span className="text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white/20 backdrop-blur px-4 py-2 rounded-xl">
+                          View Details
+                        </span>
                       </div>
+                      {/* Title — top left */}
+                      <h3 className="absolute top-2 left-2 font-extrabold text-[11px] text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] truncate max-w-[90%]">
+                        {l.title}
+                      </h3>
+                      {/* Room types — bottom center */}
+                      {l.units && l.units.length > 0 && (
+                        <p className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] whitespace-nowrap bg-black/30 backdrop-blur px-2 py-0.5 rounded-full">
+                          {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
+                        </p>
+                      )}
                     </div>
                   ) : (
-                    <div className="w-full h-28 bg-slate-200 flex items-center justify-center">
-                      <span className="text-xs text-slate-400">No photo</span>
+                    <div className="w-full h-36 bg-slate-200 rounded-lg flex items-center justify-center">
+                      <span className="text-xs text-slate-500">View Details →</span>
                     </div>
                   )}
-                  <Link
-                    href={`/listings/${l.id}`}
-                    className="block text-center text-[11px] font-bold text-blue-600 hover:underline py-1.5 bg-white"
-                  >
-                    View Details →
-                  </Link>
-                </div>
+                </Link>
               </Popup>
             </Marker>
           );
