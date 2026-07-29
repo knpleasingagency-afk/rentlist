@@ -83,7 +83,7 @@ export default async function HomePage() {
               ].map(({ value, label }) => (
                 <div key={label}>
                   <p className="text-2xl sm:text-3xl font-bold">{value}</p>
-                  <p className="text-sm text-slate-400">{label}</p>
+                  <p className="text-sm text-blue-200 font-medium">{label}</p>
                 </div>
               ))}
             </div>
