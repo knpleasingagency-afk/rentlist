@@ -27,6 +27,7 @@ function createIcon(color: string) {
 
 const longtermIcon = createIcon("#2563eb");
 const shortstayIcon = createIcon("#f59e0b");
+const featuredIcon = createIcon("#8b5cf6"); // purple for featured
 
 const DEFAULT_CENTER: [number, number] = [11.5564, 104.9282]; // Phnom Penh
 const DEFAULT_ZOOM = 13;
@@ -92,6 +93,7 @@ interface Props {
     bathrooms: number;
     photos: string[];
     listing_type?: string;
+    is_featured?: boolean;
     units?: Array<{ type: string; price: number }>;
   }>;
 }
@@ -126,15 +128,17 @@ export function LeafletMapView({ listings }: Props) {
 
         {validListings.map((l) => {
           const isShort = l.listing_type === "shortstay";
+          const isFeatured = l.is_featured;
+          const pinIcon = isFeatured ? featuredIcon : isShort ? shortstayIcon : longtermIcon;
           return (
             <Marker
               key={l.id}
               position={[l.latitude, l.longitude]}
-              icon={isShort ? shortstayIcon : longtermIcon}
+              icon={pinIcon}
             >
-              {/* Always-visible name label — clicks pass through to marker */}
-              <Tooltip permanent direction="top" offset={[0, -38]} opacity={1} className="pointer-events-none">
-                <div className="bg-white text-slate-900 font-extrabold text-xs px-2.5 py-1 rounded-lg shadow-lg border-0 whitespace-nowrap">
+              {/* Always-visible name label */}
+              <Tooltip permanent direction="top" offset={[0, -38]} opacity={1} interactive={false}>
+                <div className="bg-white text-slate-900 font-extrabold text-[11px] px-2 py-0.5 rounded-md shadow border-0 whitespace-nowrap">
                   {l.title}
                 </div>
               </Tooltip>

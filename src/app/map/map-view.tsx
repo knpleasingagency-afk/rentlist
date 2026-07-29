@@ -26,6 +26,7 @@ interface MapViewProps {
     bathrooms: number;
     photos: string[];
     listing_type?: string;
+    is_featured?: boolean;
     units?: Array<{ type: string; price: number }>;
   }>;
 }
