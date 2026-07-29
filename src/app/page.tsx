@@ -38,7 +38,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 py-20 w-full">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
           <div className="max-w-2xl space-y-8">
             <div className="space-y-4 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur text-sm text-blue-300">
@@ -104,7 +104,7 @@ export default async function HomePage() {
         </div>
 
         {listings && listings.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
             {listings.map((listing, i) => (
               <div key={listing.id} className={`animate-fade-up ${i > 0 ? `animate-fade-up-delay-${i + 1}` : ""}`}>
                 <ListingCard listing={listing as any} />

@@ -39,13 +39,13 @@ export function ListingCard({ listing }: { listing: Listing }) {
           </div>
 
           {/* Badges */}
-          <div className="absolute top-4 right-4 flex gap-2">
+          <div className="absolute top-3 right-3 flex flex-col gap-1 sm:flex-row sm:gap-2 sm:top-4 sm:right-4">
             {listing.is_featured && (
-              <span className="bg-purple-500 text-white text-xs font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1 shadow-lg">
-                <Crown className="h-3.5 w-3.5" /> Inclusive
+              <span className="bg-purple-500 text-white text-[10px] sm:text-xs font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl flex items-center gap-0.5 sm:gap-1 shadow-lg">
+                <Crown className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Inclusive
               </span>
             )}
-            <span className={`text-xs font-extrabold px-3 py-1.5 rounded-xl shadow-lg ${
+            <span className={`text-[10px] sm:text-xs font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl shadow-lg ${
               isShort ? "bg-amber-400 text-amber-900" : "bg-white/90 text-slate-800"
             }`}>
               {isShort ? "Short Stay" : "Long-term"}
@@ -54,8 +54,8 @@ export function ListingCard({ listing }: { listing: Listing }) {
         </div>
 
         {/* Content */}
-        <div className="px-5 py-4 flex flex-col flex-1 gap-3">
-          <h3 className="font-extrabold text-slate-900 truncate text-lg leading-tight">
+        <div className="px-3 sm:px-5 py-3 sm:py-4 flex flex-col flex-1 gap-2 sm:gap-3">
+          <h3 className="font-extrabold text-slate-900 truncate text-sm sm:text-lg leading-tight">
             {listing.title}
           </h3>
 
@@ -66,9 +66,9 @@ export function ListingCard({ listing }: { listing: Listing }) {
 
           {/* Unit pills */}
           {units.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {units.map((u) => (
-                <span key={u.type} className="px-2.5 py-1 rounded-lg bg-slate-100 text-xs font-bold text-slate-600">
+                <span key={u.type} className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg bg-slate-100 text-[10px] sm:text-xs font-bold text-slate-600">
                   {UNIT_LABELS[u.type] || u.type}
                   {u.price > 0 && <span className="text-slate-400 font-medium"> ${u.price}</span>}
                 </span>
