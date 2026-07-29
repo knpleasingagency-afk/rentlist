@@ -14,19 +14,11 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
 
   // Lock scroll when fullscreen open
   useEffect(() => {
-    if (fullscreen) {
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-    }
+    document.documentElement.style.overflow = fullscreen ? "hidden" : "";
+    document.body.style.overflow = fullscreen ? "hidden" : "";
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
     };
   }, [fullscreen]);
 
@@ -117,45 +109,44 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
 
       {/* Fullscreen modal */}
       {fullscreen && (
-        <div className="fixed inset-0 z-[9999] bg-black/95 select-none">
+        <div
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center select-none"
+          onClick={() => setFullscreen(false)}
+        >
           {/* Close button */}
           <button
-            onClick={() => setFullscreen(false)}
-            className="absolute top-4 right-4 z-30 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors"
+            onClick={(e) => { e.stopPropagation(); setFullscreen(false); }}
+            className="absolute top-4 right-4 z-30 text-white text-sm bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20"
           >
             ✕ Close
           </button>
 
           {/* Image */}
-          <div className="absolute inset-0 flex items-center justify-center"
-            onClick={() => setFullscreen(false)}
-          >
-            <img
-              src={photos[current]}
-              alt={`${title} - Fullscreen`}
-              className="max-w-[95vw] max-h-[95vh] object-contain"
-              draggable={false}
-            />
-          </div>
+          <img
+            src={photos[current]}
+            alt={`${title} - Fullscreen`}
+            className="max-w-[95vw] max-h-[95vh] object-contain"
+            draggable={false}
+          />
 
           {photos.length > 1 && (
             <>
-              {/* Left button */}
+              {/* Left arrow */}
               <button
                 onClick={(e) => { e.stopPropagation(); prev(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center"
               >
-                <ChevronLeft className="h-7 w-7 text-white" />
+                <ChevronLeft className="h-6 w-6 text-white" />
               </button>
-              {/* Right button */}
+              {/* Right arrow */}
               <button
                 onClick={(e) => { e.stopPropagation(); next(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center"
               >
-                <ChevronRight className="h-7 w-7 text-white" />
+                <ChevronRight className="h-6 w-6 text-white" />
               </button>
               {/* Counter */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full z-30">
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm bg-white/10 backdrop-blur px-4 py-2 rounded-full z-30 pointer-events-none">
                 {current + 1} / {photos.length}
               </div>
             </>
