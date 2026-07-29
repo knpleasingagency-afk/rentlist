@@ -4,10 +4,6 @@ import Link from "next/link";
 import { MapPin, Home, Crown } from "lucide-react";
 import { type Listing } from "@/lib/types";
 
-const UNIT_LABELS: Record<string, string> = {
-  studio: "Studio", "1bed": "One Bed", "2bed": "Two Bed", "3bed": "Three Bed", penthouse: "Penthouse",
-};
-
 export function ListingCard({ listing }: { listing: Listing }) {
   const coverPhoto = listing.photos?.[0];
   const isShort = listing.listing_type === "shortstay";
@@ -30,54 +26,38 @@ export function ListingCard({ listing }: { listing: Listing }) {
               <Home className={`h-12 w-12 ${isShort ? "text-amber-300" : "text-blue-300"}`} />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-          {/* Price */}
-          <div className="absolute bottom-4 left-4">
-            <p className="text-white font-extrabold text-xl sm:text-2xl drop-shadow-lg">{priceText}</p>
-            <p className="text-white/70 text-xs font-medium">per month</p>
-          </div>
-
-          {/* Badges */}
-          <div className="absolute top-3 right-3 flex flex-col gap-1 sm:flex-row sm:gap-2 sm:top-4 sm:right-4">
+          {/* Top badges — compact */}
+          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center gap-1.5">
             {listing.is_featured && (
-              <span className="bg-purple-500 text-white text-[10px] sm:text-xs font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl flex items-center gap-0.5 sm:gap-1 shadow-lg">
-                <Crown className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> Inclusive
+              <span className="bg-purple-500/90 backdrop-blur text-white text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow">
+                <Crown className="h-3 w-3" fill="white" />
               </span>
             )}
-            <span className={`text-[10px] sm:text-xs font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl shadow-lg ${
-              isShort ? "bg-amber-400 text-amber-900" : "bg-white/90 text-slate-800"
+            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md shadow backdrop-blur ${
+              isShort ? "bg-amber-400/90 text-amber-900" : "bg-white/80 text-slate-700"
             }`}>
-              {isShort ? "Short Stay" : "Long-term"}
+              {isShort ? "Short" : "Long"}
             </span>
+          </div>
+
+          {/* Price — smaller */}
+          <div className="absolute bottom-3 left-3">
+            <p className="text-white font-extrabold text-base sm:text-lg drop-shadow">{priceText}</p>
+            <p className="text-white/60 text-[11px] font-medium">/month</p>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="px-3 sm:px-5 py-3 sm:py-4 flex flex-col flex-1 gap-2 sm:gap-3">
-          <h3 className="font-extrabold text-slate-900 truncate text-sm sm:text-lg leading-tight">
+        {/* Content — clean, no unit pills */}
+        <div className="px-3 sm:px-4 py-3 flex flex-col flex-1">
+          <h3 className="font-extrabold text-slate-900 truncate text-sm sm:text-base leading-tight">
             {listing.title}
           </h3>
-
-          <div className="flex items-center gap-1.5 text-sm text-slate-500">
-            <MapPin className="h-4 w-4 shrink-0 text-rose-400" />
+          <p className="flex items-center gap-1 text-xs sm:text-sm text-slate-400 mt-1.5">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">{listing.address}</span>
-          </div>
-
-          {/* Unit pills */}
-          {units.length > 0 && (
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
-              {units.map((u) => (
-                <span key={u.type} className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg bg-slate-100 text-[10px] sm:text-xs font-bold text-slate-600">
-                  {UNIT_LABELS[u.type] || u.type}
-                  {u.price > 0 && <span className="text-slate-400 font-medium"> ${u.price}</span>}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* Specs from first unit */}
-          <div className="mt-auto pt-3 border-t border-slate-100" />
+          </p>
         </div>
       </article>
     </Link>
