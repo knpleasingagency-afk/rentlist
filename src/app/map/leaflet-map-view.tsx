@@ -152,20 +152,21 @@ export function LeafletMapView({ listings }: Props) {
                     <img
                       src={l.photos[0]}
                       alt={l.title}
-                      className="w-full h-28 object-cover rounded-lg"
+                      className="w-full h-28 object-cover rounded-t-lg"
                     />
                   )}
-                  <div className="flex items-center justify-between mt-1.5">
+                  <div className="px-2 pb-2 pt-1.5 space-y-1">
+                    <h3 className="font-extrabold text-xs text-slate-900 truncate">{l.title}</h3>
                     {l.units && l.units.length > 0 && (
-                      <p className="text-[11px] font-semibold text-slate-600">
+                      <p className="text-[10px] font-medium text-slate-500">
                         {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
                       </p>
                     )}
                     <Link
                       href={`/listings/${l.id}`}
-                      className="text-[11px] font-bold text-blue-600 hover:underline shrink-0"
+                      className="inline-block text-[11px] font-bold text-blue-600 hover:underline"
                     >
-                      View →
+                      View Details →
                     </Link>
                   </div>
                 </div>
