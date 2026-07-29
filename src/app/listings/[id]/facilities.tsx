@@ -92,11 +92,11 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
                     <img
                       src={item.photoUrl}
                       alt={item.facilityName}
-                      className="w-full h-56 sm:h-72 object-contain bg-black/5"
+                      className="w-full h-56 sm:h-80 object-cover"
                     />
                   </button>
                 ) : (
-                  <div className="w-full h-56 sm:h-72 bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+                  <div className="w-full h-56 sm:h-80 bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
                     <Icon className={`h-16 w-16 ${color} opacity-30`} />
                   </div>
                 )}
