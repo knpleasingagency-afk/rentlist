@@ -60,7 +60,7 @@ export default async function HomePage() {
             {/* Search bar */}
             <form action="/listings" className="flex gap-2.5 max-w-lg animate-fade-up animate-fade-up-delay-1">
               <div className="relative flex-1 min-w-0">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40 z-10" />
                 <Input
                   name="search"
                   placeholder="Search by name or area..."
@@ -74,19 +74,6 @@ export default async function HomePage() {
               </Button>
             </form>
 
-            {/* Stats row */}
-            <div className="flex justify-center sm:justify-start gap-8 text-white animate-fade-up animate-fade-up-delay-2">
-              {[
-                { value: count ?? 0, label: "Listings" },
-                { value: "100+", label: "Happy Clients" },
-                { value: "24/7", label: "Support" },
-              ].map(({ value, label }) => (
-                <div key={label}>
-                  <p className="text-2xl sm:text-3xl font-bold">{value}</p>
-                  <p className="text-sm text-blue-200 font-medium">{label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -101,6 +88,20 @@ export default async function HomePage() {
           <Link href="/listings" className="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:underline">
             View all <ArrowRight className="h-4 w-4" />
           </Link>
+        </div>
+
+        {/* Stats — centered, visible colors */}
+        <div className="flex justify-center gap-6 sm:gap-10 mb-8">
+          {[
+            { value: count ?? 0, label: "Listings" },
+            { value: "100+", label: "Happy Clients" },
+            { value: "24/7", label: "Support" },
+          ].map(({ value, label }) => (
+            <div key={label} className="text-center">
+              <p className="text-xl sm:text-2xl font-extrabold text-slate-900">{value}</p>
+              <p className="text-xs sm:text-sm text-slate-500 font-medium">{label}</p>
+            </div>
+          ))}
         </div>
 
         {listings && listings.length > 0 ? (
