@@ -92,7 +92,7 @@ export function BuildingFacilities({ amenities }: { amenities: any[] }) {
                     <img
                       src={item.photoUrl}
                       alt={item.facilityName}
-                      className="w-full h-56 sm:h-72 object-cover"
+                      className="w-full h-56 sm:h-72 object-contain bg-black/5"
                     />
                   </button>
                 ) : (
