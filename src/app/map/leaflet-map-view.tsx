@@ -147,25 +147,27 @@ export function LeafletMapView({ listings }: Props) {
                 </div>
               </Tooltip>
               <Popup>
-                <div className="w-36">
+                <div className="w-52">
                   {l.photos?.[0] && (
                     <img
                       src={l.photos[0]}
                       alt={l.title}
-                      className="w-full h-20 object-cover rounded-lg mb-2"
+                      className="w-full h-28 object-cover rounded-lg"
                     />
                   )}
-                  {l.units && l.units.length > 0 && (
-                    <p className="text-[11px] font-medium text-slate-600">
-                      {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
-                    </p>
-                  )}
-                  <Link
-                    href={`/listings/${l.id}`}
-                    className="inline-block mt-2 text-xs font-bold text-blue-600 hover:underline"
-                  >
-                    View Details →
-                  </Link>
+                  <div className="flex items-center justify-between mt-1.5">
+                    {l.units && l.units.length > 0 && (
+                      <p className="text-[11px] font-semibold text-slate-600">
+                        {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
+                      </p>
+                    )}
+                    <Link
+                      href={`/listings/${l.id}`}
+                      className="text-[11px] font-bold text-blue-600 hover:underline shrink-0"
+                    >
+                      View →
+                    </Link>
+                  </div>
                 </div>
               </Popup>
             </Marker>
