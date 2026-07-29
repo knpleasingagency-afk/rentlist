@@ -26,7 +26,7 @@ export default async function HomePage() {
   return (
     <div>
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[85vh] flex items-center">
+      <section className="relative min-h-[70vh] sm:min-h-[85vh] flex items-start sm:items-center">
         {/* Background image with overlay */}
         <div className="absolute inset-0">
           <img
@@ -38,7 +38,7 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-20 w-full">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-16 sm:py-20 w-full">
           <div className="max-w-2xl space-y-8">
             <div className="space-y-4 animate-fade-up">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur text-sm text-blue-300">
