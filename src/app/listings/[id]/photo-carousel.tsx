@@ -119,45 +119,50 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
       {/* Fullscreen modal */}
       {fullscreen && (
         <div
-          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
-          onClick={() => setFullscreen(false)}
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center select-none"
           onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
           onTouchEnd={(e) => {
             const diff = touchStartX.current - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) {
+            if (Math.abs(diff) > 60) {
+              e.preventDefault();
               e.stopPropagation();
-              diff > 0 ? next() : prev();
+              if (diff > 0) next(); else prev();
             }
           }}
         >
+          {/* Close by tapping background */}
+          <div className="absolute inset-0" onClick={() => setFullscreen(false)} />
+
           <img
             src={photos[current]}
             alt={`${title} - Fullscreen`}
-            className="max-w-[95vw] max-h-[95vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
+            className="max-w-[95vw] max-h-[95vh] object-contain z-10"
+            draggable={false}
           />
           {photos.length > 1 && (
             <>
-              <button
+              {/* Left tap zone */}
+              <div
+                className="absolute left-0 top-0 bottom-0 w-[15%] z-20 flex items-center justify-center"
                 onClick={(e) => { e.stopPropagation(); prev(); }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur flex items-center justify-center hover:bg-white/20 transition-colors"
               >
-                <ChevronLeft className="h-6 w-6 text-white" />
-              </button>
-              <button
+                <ChevronLeft className="h-8 w-8 text-white/70" />
+              </div>
+              {/* Right tap zone */}
+              <div
+                className="absolute right-0 top-0 bottom-0 w-[15%] z-20 flex items-center justify-center"
                 onClick={(e) => { e.stopPropagation(); next(); }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur flex items-center justify-center hover:bg-white/20 transition-colors"
               >
-                <ChevronRight className="h-6 w-6 text-white" />
-              </button>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                <ChevronRight className="h-8 w-8 text-white/70" />
+              </div>
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full z-20">
                 {current + 1} / {photos.length}
               </div>
             </>
           )}
           <button
             onClick={() => setFullscreen(false)}
-            className="absolute top-6 right-6 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors"
+            className="absolute top-6 right-6 text-white text-sm font-medium bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors z-20"
           >
             Close
           </button>
