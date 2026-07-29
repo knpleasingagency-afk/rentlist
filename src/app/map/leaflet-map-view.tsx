@@ -29,6 +29,10 @@ const longtermIcon = createIcon("#2563eb");
 const shortstayIcon = createIcon("#f59e0b");
 const featuredIcon = createIcon("#8b5cf6"); // purple for featured
 
+const UNIT_LABELS: Record<string, string> = {
+  studio: "Studio", "1bed": "1BR", "2bed": "2BR", "3bed": "3BR", penthouse: "Penthouse",
+};
+
 const DEFAULT_CENTER: [number, number] = [11.5564, 104.9282]; // Phnom Penh
 const DEFAULT_ZOOM = 13;
 
@@ -143,7 +147,7 @@ export function LeafletMapView({ listings }: Props) {
                 </div>
               </Tooltip>
               <Popup>
-                <div className="w-44">
+                <div className="w-36">
                   {l.photos?.[0] && (
                     <img
                       src={l.photos[0]}
@@ -151,23 +155,14 @@ export function LeafletMapView({ listings }: Props) {
                       className="w-full h-20 object-cover rounded-lg mb-2"
                     />
                   )}
-                  <h3 className="font-extrabold text-xs leading-tight truncate">{l.title}</h3>
-                  <p className="font-extrabold text-sm text-blue-600 mt-1">
-                    ${(() => {
-                      const prices = l.units?.map(u => u.price).filter(Boolean) || [];
-                      return prices.length > 0
-                        ? `${Math.min(...prices).toLocaleString()}-${Math.max(...prices).toLocaleString()}`
-                        : (l.price || 0).toLocaleString();
-                    })()}/mo
-                  </p>
                   {l.units && l.units.length > 0 && (
-                    <p className="text-[10px] text-slate-500 mt-1">
-                      {l.units.map(u => u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
+                    <p className="text-[11px] font-medium text-slate-600">
+                      {l.units.map(u => UNIT_LABELS[u.type] || u.type).filter((v, i, a) => a.indexOf(v) === i).join(" · ")}
                     </p>
                   )}
                   <Link
                     href={`/listings/${l.id}`}
-                    className="inline-block mt-2 text-[11px] font-bold text-blue-600 hover:underline"
+                    className="inline-block mt-2 text-xs font-bold text-blue-600 hover:underline"
                   >
                     View Details →
                   </Link>
