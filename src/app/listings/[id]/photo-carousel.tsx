@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
 
 interface PhotoCarouselProps {
@@ -11,6 +11,13 @@ interface PhotoCarouselProps {
 export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
+  const touchStartX = useRef(0);
+
+  // Lock body scroll when fullscreen open
+  useEffect(() => {
+    document.body.style.overflow = fullscreen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [fullscreen]);
 
   if (!photos || photos.length === 0) {
     return (
@@ -102,11 +109,20 @@ export function PhotoCarousel({ photos, title }: PhotoCarouselProps) {
         <div
           className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
           onClick={() => setFullscreen(false)}
+          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+          onTouchEnd={(e) => {
+            const diff = touchStartX.current - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+              e.stopPropagation();
+              diff > 0 ? next() : prev();
+            }
+          }}
         >
           <img
             src={photos[current]}
             alt={`${title} - Fullscreen`}
             className="max-w-[95vw] max-h-[95vh] object-contain"
+            onClick={(e) => e.stopPropagation()}
           />
           {photos.length > 1 && (
             <>
